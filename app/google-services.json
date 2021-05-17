@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "40989010819",
+    "project_id": "think-bots-b281f",
+    "storage_bucket": "think-bots-b281f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40989010819:android:268239a334541a7741e4b6",
+        "android_client_info": {
+          "package_name": "com.example.thinkbots"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40989010819-ipuce2grffvcmu9tidiajasc13j6rdae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnJcnqM6kqpZxqEKdqTdmvDPH4c8XsnX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40989010819-ipuce2grffvcmu9tidiajasc13j6rdae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
