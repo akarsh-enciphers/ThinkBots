@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -31,12 +33,14 @@ import java.util.List;
 public class QuizFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "QUIZ_FRAGMENT_LOG";
+    private NavController navController;
     private FirebaseFirestore firebaseFirestore;
     private  String quizId;
 
     //initializing firebase auth to  get the user id from there to store it in a field
     private FirebaseAuth firebaseAuth;
     private  String currentUserId;
+    private String quizName;
 
     //UI Elements
     private  TextView quizTitle;
@@ -86,6 +90,8 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull  View view, @Nullable  Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        navController = Navigation.findNavController(view);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         //get user id
@@ -115,6 +121,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
 
         //get quizId
         quizId = QuizFragmentArgs.fromBundle(getArguments()).getQuizid();
+        quizName = QuizFragmentArgs.fromBundle(getArguments()).getQuizName();
         totalQuestionsToAnswer = QuizFragmentArgs.fromBundle(getArguments()).getTotalQuestions();
 
         //Get all questions from the quiz
@@ -149,7 +156,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
 
     private void loadUI() {
         //to load the UI we will created a new method
-        quizTitle.setText("Quiz Data Loaded");
+        quizTitle.setText(quizName);
         questionText.setText("Load First Question");
 
         //after the questions and ui loads we will enable the answer button for that we will create another method
@@ -295,8 +302,12 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     //Go to results page
+                    QuizFragmentDirections.ActionQuizFragmentToResultFragment action = QuizFragmentDirections.actionQuizFragmentToResultFragment();
+                    action.setQuizId(quizId);
+                    navController.navigate(action);
                 }else {
                     //show error
+                    quizTitle.setText(task.getException().getMessage());
                 }
 
             }

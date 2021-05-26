@@ -20,15 +20,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class DetailsFragment extends Fragment implements View.OnClickListener {
 
     private NavController navController;
+    private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
     private QuizListViewModel quizListViewModel;
     private int position;
 
@@ -37,6 +42,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
     private TextView detailsDesc;
     private  TextView detailsDiff;
     private  TextView detailsQuestions;
+    private TextView detailsScore;
 
     private Button detailsStartBtn;
     private String quizId;
@@ -59,6 +65,8 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
 
         navController = Navigation.findNavController(view);
         position = DetailsFragmentArgs.fromBundle(getArguments()).getPosition();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //initializing UI Elements
         detailsImage = view.findViewById(R.id.details_image);
@@ -67,6 +75,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         detailsDiff = view.findViewById(R.id.details_difficulty_text);
         detailsQuestions = view.findViewById(R.id.details_questions_text);
         detailsStartBtn = view.findViewById(R.id.details_start_btn);
+        detailsScore = view.findViewById(R.id.details_score_text);
         detailsStartBtn.setOnClickListener(this);
 
     }
@@ -94,9 +103,48 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
                 quizId = quizListModels.get(position).getQuiz_id();
                 totalQuestions = quizListModels.get(position).getQuestions();
 
+                //Load Result data
+                loadResultData();
+
 
             }
         });
+    }
+
+    private void loadResultData() {
+        new Thread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        firebaseFirestore.collection("QuizList").document(quizId).collection("Results")
+                                .document(firebaseAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull  Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document != null && document.exists()){
+                                        //get result
+                                        Long correct = document.getLong("correct");
+                                        Long wrong = document.getLong("wrong");
+                                        Long missed = document.getLong("unanswered");
+
+                                        //calculate progress
+                                        //Long total = correct + wrong + missed;
+                                        //Long percent = (correct*100)/total;
+                                        //detailsScore.setText(percent + "%");
+                                    }
+                                    else{
+                                        //document doesn't exist and result should be N/A
+                                    }
+                                }
+
+                            }
+                        });
+
+                    }
+                }
+        ).start();
+
     }
 
     @Override
