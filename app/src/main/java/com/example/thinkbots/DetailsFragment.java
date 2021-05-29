@@ -46,6 +46,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
 
     private Button detailsStartBtn;
     private String quizId;
+    private  String quizName;
     private long totalQuestions = 0;
 
     public DetailsFragment() {
@@ -101,6 +102,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
 
                 //Assign value to quizID variable
                 quizId = quizListModels.get(position).getQuiz_id();
+                quizName = quizListModels.get(position).getName();
                 totalQuestions = quizListModels.get(position).getQuestions();
 
                 //Load Result data
@@ -129,9 +131,9 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
                                         Long missed = document.getLong("unanswered");
 
                                         //calculate progress
-                                        //Long total = correct + wrong + missed;
-                                        //Long percent = (correct*100)/total;
-                                        //detailsScore.setText(percent + "%");
+                                        Long total = correct + wrong + missed;
+                                        Long percent = (correct*100)/total;
+                                        detailsScore.setText(percent + "%");
                                     }
                                     else{
                                         //document doesn't exist and result should be N/A
@@ -154,6 +156,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
                 DetailsFragmentDirections.ActionDetailsFragmentToQuizFragment action = DetailsFragmentDirections.actionDetailsFragmentToQuizFragment();
                 action.setTotalQuestions(totalQuestions);
                 action.setQuizid(quizId);
+                action.setQuizName(quizName);
                 navController.navigate(action);
 
                 break;

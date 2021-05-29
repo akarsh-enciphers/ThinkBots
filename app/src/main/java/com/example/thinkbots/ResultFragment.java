@@ -127,7 +127,5 @@ public class ResultFragment extends Fragment {
                     }
                 }
         ).start();
-
-
     }
 }

@@ -6,35 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".QuizFragment"
     android:background="@color/colorPrimaryDark">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
-    <ImageButton
-        android:id="@+id/quiz_close_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@android:color/transparent"
-        android:padding="16dp"
-        android:src="@drawable/quiz_close_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/quiz_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/crimson_text"
         android:text="Loading Quiz..."
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="36sp"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quiz_close_btn" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/quiz_question_number_title"
@@ -44,7 +39,6 @@
         android:fontFamily="@font/work_sans"
         android:text="Question"
         android:textColor="@color/colorLightText"
-        app:layout_constraintEnd_toEndOf="@+id/quiz_close_btn"
         app:layout_constraintStart_toStartOf="@+id/quiz_title"
         app:layout_constraintTop_toBottomOf="@+id/quiz_title" />
 
@@ -70,7 +64,6 @@
         android:progressDrawable="@drawable/circular_progress"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/quiz_title"
-        app:layout_constraintStart_toStartOf="@+id/quiz_close_btn"
         app:layout_constraintTop_toBottomOf="@+id/quiz_title" />
 
     <TextView
@@ -90,9 +83,9 @@
         android:id="@+id/quiz_question"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/work_sans"
         android:text="Fetching Data"
         android:textAlignment="center"
@@ -106,9 +99,9 @@
         android:id="@+id/quiz_option_one"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/outline_light_btn_bg"
         android:fontFamily="@font/work_sans"
         android:padding="12dp"
@@ -124,9 +117,9 @@
         android:id="@+id/quiz_option_two"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/outline_light_btn_bg"
         android:fontFamily="@font/work_sans"
         android:padding="12dp"
@@ -142,9 +135,9 @@
         android:id="@+id/quiz_option_three"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/outline_light_btn_bg"
         android:fontFamily="@font/work_sans"
         android:padding="12dp"
@@ -160,9 +153,9 @@
         android:id="@+id/quiz_option_four"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/outline_light_btn_bg"
         android:fontFamily="@font/work_sans"
         android:padding="12dp"
@@ -179,7 +172,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/work_sans"
         android:text="Verifying Answers"
@@ -207,7 +200,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quiz_question_feedback" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

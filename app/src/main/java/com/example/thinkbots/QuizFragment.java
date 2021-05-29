@@ -49,14 +49,11 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     private Button optionThreeBtn;
     private Button optionFourBtn;
     private Button nextBtn;
-    private ImageButton closeBtn;
     private TextView questionFeedback;
     private TextView questionText;
     private TextView questionTime;
     private ProgressBar questionProgress;
     private TextView questionNumber;
-
-
 
 
     //Firebase data
@@ -291,7 +288,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         //to add data to the document we created a new  hashmap
         //this will have the key type as string and value type as object which means any type of value can be stored in this
         HashMap<String, Object> resultMap = new HashMap<>();
-        resultMap.put("Correct", correctAnswers);
+        resultMap.put("correct", correctAnswers);
         resultMap.put("wrong", wrongAnswers);
         resultMap.put("unanswered", notAnswered);
 
